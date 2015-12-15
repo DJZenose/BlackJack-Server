@@ -31,9 +31,16 @@ namespace NAD_BlackJack_Server
         private void ExecuteQuery(object sender, EventArgs e)
         {
             DataSet dsBlackjack;
-
-            this.userDetailsTableAdapter.Update(blackJackDBDataSet);
-
+            try
+            {
+                this.Validate();
+                this.userDetailsBindingSource.EndEdit();
+                this.userDetailsTableAdapter.Update(blackJackDBDataSet);
+            }
+            catch(System.Exception ex)
+            {
+                ErrorLabel.Text = "Query Failed";
+            }
         }
 
         private void Insert(object sender, EventArgs e)
